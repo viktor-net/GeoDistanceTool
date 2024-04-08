@@ -1,0 +1,60 @@
+name: 🚀 Build & Publish Release
+
+on:
+  push:
+    tags:
+      - 'v*'  # Запуск при создании тега вида v1.0.0
+  workflow_dispatch:  # Ручной запуск
+
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: write  # Для создания релиза
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: 📦 Publish self-contained exe
+        run: |
+          dotnet publish GeoDistanceTool/GeoDistanceTool.csproj `
+            -c Release `
+            -r win-x64 `
+            --self-contained true `
+            -p:PublishSingleFile=true `
+            -p:EnableCompressionInSingleFile=true `
+            -o ./publish
+        shell: pwsh
+
+      - name: 📋 Copy distribution files
+        run: |
+          Copy-Item -Path "./publish/GeoDistanceTool.exe" -Destination "./dist/" -Force
+          Copy-Item -Path "./scripts/install.ps1" -Destination "./dist/" -Force
+          Copy-Item -Path "./scripts/uninstall.ps1" -Destination "./dist/" -Force
+        shell: pwsh
+
+      - name: 🏷️ Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ./dist/*
+          name: "Release ${{ github.ref_name }}"
+          body: |
+            ## 🌍 GeoDistanceTool ${{ github.ref_name }}
+            
+            ### 📥 Установка
+            1. Скачайте 3 файла ниже
+            2. Запустите `.\install.ps1`
+            3. Готово! Используйте: `GeoDistanceTool --help`
+            
+            ### 🔍 Изменения
+            - Автоматическая сборка через GitHub Actions
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
