@@ -1,14 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net10.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net10.0</TargetFramework>
+		<AssemblyName>GeoDistanceTool</AssemblyName>
+		<DebugType>none</DebugType>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.CommandLine" Version="2.0.5" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Spectre.Console" Version="0.55.0" />
+		<PackageReference Include="Spectre.Console.Cli" Version="0.55.0" />
+	</ItemGroup>
 
+	<!-- Копировать установочные скрипты в папку публикации -->
+	<ItemGroup>
+		<None Include="install.ps1" CopyToOutputDirectory="PreserveNewest"/>
+		<None Include="uninstall.ps1" CopyToOutputDirectory="PreserveNewest"/>
+	</ItemGroup>
 </Project>
