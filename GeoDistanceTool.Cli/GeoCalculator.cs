@@ -6,7 +6,7 @@ namespace GeoDistanceTool.Cli;
 
 public static class GeoCalculator
 {
-    private const double EarthRadiusKm = 6371.0;
+    internal const double EarthRadiusKm = 6371.0;
 
     public static double Calculate(double lat1, double lon1, double lat2, double lon2)
     {

@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="GeoDistanceTool.Cli/GeoDistanceTool.Cli.csproj" />
+  <Project Path="GeoDistanceTool.Tests/GeoDistanceTool.Tests.csproj" Id="364a2bde-3192-461d-9b57-64672b4c1c62" />
 </Solution>

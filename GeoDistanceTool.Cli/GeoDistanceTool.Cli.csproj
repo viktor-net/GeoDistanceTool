@@ -12,6 +12,9 @@
 	<ItemGroup>
 		<PackageReference Include="Spectre.Console" Version="0.55.0" />
 		<PackageReference Include="Spectre.Console.Cli" Version="0.55.0" />
+
+		<!-- Разрешить тестам доступ к internal -->
+		<InternalsVisibleTo Include="GeoDistanceTool.Tests" />
 	</ItemGroup>
 
 	<!-- Копировать установочные скрипты в папку публикации -->
