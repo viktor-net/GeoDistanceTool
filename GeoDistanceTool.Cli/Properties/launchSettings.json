@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "GeoDistanceTool.Cli": {
+      "commandName": "Project",
+      "commandLineArgs": "--help",
+      "environmentVariables": {
+        "--help": ""
+      }
+    }
+  }
+}
